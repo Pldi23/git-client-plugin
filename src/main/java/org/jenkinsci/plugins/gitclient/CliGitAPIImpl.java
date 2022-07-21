@@ -1463,9 +1463,9 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
                     return;
                 }
 
-                String config = launchCommand("config", "--global", "-l");
-                listener.getLogger().println(config);
-                LOG.log(Level.INFO, config);
+//                String config = launchCommand("config", "--global", "-l");
+//                listener.getLogger().println(config);
+//                LOG.log(Level.INFO, config);
 
                 String localConfig = launchCommand("config", "--local", "-l");
                 listener.getLogger().println(localConfig);
