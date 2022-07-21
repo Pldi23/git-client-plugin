@@ -70,6 +70,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.stream.Collectors;
@@ -82,6 +84,9 @@ import java.util.stream.Collectors;
  * </b>
  */
 public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
+
+    private static final Logger LOG = Logger.getLogger(CliGitAPIImpl.class.getName());
+
 
     /**
      * Constant which can block use of setsid in git calls for ssh credentialed operations.
@@ -1457,6 +1462,14 @@ public class CliGitAPIImpl extends LegacyCompatibleGitAPIImpl {
                     listener.error("No submodules found.");
                     return;
                 }
+
+                String config = launchCommand("config", "--global", "-l");
+                listener.getLogger().println(config);
+                LOG.log(Level.INFO, config);
+
+                String localConfig = launchCommand("config", "--local", "-l");
+                listener.getLogger().println(localConfig);
+                LOG.log(Level.INFO, localConfig);
 
                 // Use a matcher to find each configured submodule name, and
                 // then run the submodule update command with the provided
